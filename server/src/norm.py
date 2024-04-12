@@ -371,7 +371,7 @@ def _norm_search_impl(database, name, collection=None, exactmatch=False):
     score_by_id = {}
     score_by_str = {}
 
-    with Simstring(dbpath, unicode=dbunicode) as ss:
+    with Simstring(dbpath, str=dbunicode) as ss:
 
         # look up hits where name appears in full
         best_score = _norm_search_name_attr(ss, name, None,
@@ -381,7 +381,7 @@ def _norm_search_impl(database, name, collection=None, exactmatch=False):
         # if there are no hits and we only have a simple candidate string,
         # look up with a low threshold
         if best_score == 0 and len(name.split()) == 1:
-            with Simstring(dbpath, threshold=0.5, unicode=dbunicode) as low_threshold_ss:
+            with Simstring(dbpath, threshold=0.5, str=dbunicode) as low_threshold_ss:
                 best_score = _norm_search_name_attr(low_threshold_ss, name, None,
                                                     matched, score_by_id, score_by_str,
                                                     0, exactmatch)
@@ -517,12 +517,12 @@ def _test():
                     found_rank = rank + 1
                     break
             strdelta = str(delta).replace('0:00:0', '').replace('0:00:', '')
-            print("%s: '%s' <- '%s' rank %d/%d (%s sec)" % ('  ok' if found
+            print(("%s: '%s' <- '%s' rank %d/%d (%s sec)" % ('  ok' if found
                                                             else 'MISS',
                                                             target, query,
                                                             found_rank,
                                                             len(results['items']),
-                                                            strdelta))
+                                                            strdelta)))
             query_count += 1
             if found:
                 hit_count += 1
@@ -533,12 +533,12 @@ def _test():
         print()
         print("MISSED:")
         for query, target in misses:
-            print("%s '%s'" % (target, query))
+            print(("%s '%s'" % (target, query)))
 
     delta = datetime.now() - overall_start
     strdelta = str(delta).replace('0:00:0', '').replace('0:00:', '')
     print()
-    print("Found %d / %d in %s" % (hit_count, query_count, strdelta))
+    print(("Found %d / %d in %s" % (hit_count, query_count, strdelta)))
 
 
 def _profile_test():

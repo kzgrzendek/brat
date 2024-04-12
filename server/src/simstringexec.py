@@ -27,7 +27,7 @@ class SimstringExec(SimstringBase):
             include_marks=SimstringBase.DEFAULT_INCLUDE_MARKS,
             threshold=SimstringBase.DEFAULT_THRESHOLD,
             similarity_measure=SimstringBase.DEFAULT_SIMILARITY_MEASURE,
-            unicode=SimstringBase.DEFAULT_UNICODE,
+            str=SimstringBase.DEFAULT_UNICODE,
             build=False):
 
         super().__init__(dbfn,
@@ -35,7 +35,7 @@ class SimstringExec(SimstringBase):
                 include_marks=include_marks,
                 threshold=threshold,
                 similarity_measure=similarity_measure,
-                unicode=unicode,
+                str=str,
                 build=build)
 
         self.proc = None
@@ -52,7 +52,7 @@ class SimstringExec(SimstringBase):
                 ]
         if self.is_build:
             cmd.append("-b")
-        if unicode:
+        if str:
             cmd.append("-u")
 
         self.proc = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE, encoding="utf-8")

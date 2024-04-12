@@ -128,5 +128,5 @@ class CoreNLPTagger(object):
 if __name__ == '__main__':
     # XXX: Hard-coded for testing
     tagger = CoreNLPTagger('stanford-corenlp-2012-04-09')
-    print(tagger.tag('Just a test, like the ones they do at IBM.\n'
-                     'Or Microsoft for that matter.'))
+    print((tagger.tag('Just a test, like the ones they do at IBM.\n'
+                     'Or Microsoft for that matter.')))

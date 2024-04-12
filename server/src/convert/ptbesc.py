@@ -23,14 +23,14 @@ PTB_ESCAPES = {
 
 def escape(s):
     r = s
-    for _from, to in PTB_ESCAPES.items():
+    for _from, to in list(PTB_ESCAPES.items()):
         r = r.replace(_from, to)
     return r
 
 
 def unescape(s):
     r = s
-    for _from, to in PTB_ESCAPES.items():
+    for _from, to in list(PTB_ESCAPES.items()):
         r = r.replace(to, _from)
     return r
 

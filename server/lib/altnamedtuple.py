@@ -159,8 +159,8 @@ if __name__ == '__main__':
         def _replace(self, _map=map, **kwds):
             return self._make(_map(kwds.get, ('x', 'y'), self))
 
-    print(Point(11, 22)._replace(x=100))
+    print((Point(11, 22)._replace(x=100)))
 
     import doctest
     TestResults = namedtuple('TestResults', 'failed attempted')
-    print(TestResults(*doctest.testmod()))
+    print((TestResults(*doctest.testmod())))

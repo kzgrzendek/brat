@@ -116,7 +116,7 @@
 # doc.save(ann)
 
 
-from __future__ import with_statement
+
 
 from codecs import open as codecs_open
 from itertools import chain, takewhile
@@ -203,7 +203,7 @@ class AnnotationLineSyntaxError(Exception):
         self.filepath = filepath
 
     def __str__(self):
-        u'Syntax error on line %d: "%s"' % (self.line_num, self.line)
+        'Syntax error on line %d: "%s"' % (self.line_num, self.line)
 
 
 class IdedAnnotationLineSyntaxError(AnnotationLineSyntaxError):
@@ -212,7 +212,7 @@ class IdedAnnotationLineSyntaxError(AnnotationLineSyntaxError):
         self.id = id
 
     def __str__(self):
-        u'Syntax error on line %d (id %s): "%s"' % (
+        'Syntax error on line %d (id %s): "%s"' % (
             self.line_num, self.id, self.line)
 
 
@@ -221,7 +221,7 @@ class AnnotationNotFoundError(Exception):
         self.id = id
 
     def __str__(self):
-        return u'Could not find an annotation with id: %s' % (self.id, )
+        return 'Could not find an annotation with id: %s' % (self.id, )
 
 
 class AnnotationError(ProtocolError):
@@ -232,7 +232,7 @@ class AnnotationFileNotFoundError(AnnotationError):
         self.fn = fn
 
     def __str__(self):
-        return u'Could not find any annotations for %s' % (self.fn, )
+        return 'Could not find any annotations for %s' % (self.fn, )
 
     def json(self, json_dic):
         json_dic['exception'] = 'annotationFileNotFound'
@@ -244,7 +244,7 @@ class AnnotationCollectionNotFoundError(AnnotationError):
         self.cn = cn
 
     def __str__(self):
-        return u'Error accessing collection %s' % (self.cn, )
+        return 'Error accessing collection %s' % (self.cn, )
 
     def json(self, json_dic):
         # TODO: more specific error?
@@ -257,7 +257,7 @@ class EventWithoutTriggerError(AnnotationError):
         self.event = event
 
     def __str__(self):
-        return u'Event "%s" lacks a trigger' % (self.event, )
+        return 'Event "%s" lacks a trigger' % (self.event, )
 
     def json(self, json_dic):
         json_dic['exception'] = 'eventWithoutTrigger'
@@ -270,7 +270,7 @@ class EventWithNonTriggerError(AnnotationError):
         self.non_trigger = non_trigger
 
     def __str__(self):
-        return u'Non-trigger "%s" used by "%s" as trigger' % (
+        return 'Non-trigger "%s" used by "%s" as trigger' % (
             self.non_trigger, self.event, )
 
     def json(self, json_dic):
@@ -284,7 +284,7 @@ class TriggerReferenceError(AnnotationError):
         self.referencer = referencer
 
     def __str__(self):
-        return u'Trigger "%s" referenced by non-event "%s"' % (
+        return 'Trigger "%s" referenced by non-event "%s"' % (
             self.trigger, self.referencer, )
 
     def json(self, json_dic):
@@ -294,7 +294,7 @@ class TriggerReferenceError(AnnotationError):
 
 class AnnotationTextFileNotFoundError(AnnotationFileNotFoundError):
     def __str__(self):
-        return u'Could not read text file for %s' % (self.fn, )
+        return 'Could not read text file for %s' % (self.fn, )
 
 
 class AnnotationsIsReadOnlyError(AnnotationError):
@@ -317,7 +317,7 @@ class DuplicateAnnotationIdError(AnnotationLineSyntaxError):
         self.id = id
 
     def __str__(self):
-        return (u'Duplicate id: %s on line %d (id %s): "%s"'
+        return ('Duplicate id: %s on line %d (id %s): "%s"'
                 ) % (self.id, self.line_num, self.id, self.line)
 
 
@@ -326,7 +326,7 @@ class InvalidIdError(Exception):
         self.id = id
 
     def __str__(self):
-        return u'Invalid id: %s' % (self.id, )
+        return 'Invalid id: %s' % (self.id, )
 
 
 class DependingAnnotationDeleteError(Exception):
@@ -335,11 +335,11 @@ class DependingAnnotationDeleteError(Exception):
         self.dependants = dependants
 
     def __str__(self):
-        return u'%s can not be deleted due to depending annotations %s' % (str(
+        return '%s can not be deleted due to depending annotations %s' % (str(
             self.target).rstrip(), ",".join([str(d).rstrip() for d in self.dependants]))
 
     def html_error_str(self, response=None):
-        return u'''Annotation:
+        return '''Annotation:
         %s
         Has depending annotations attached to it:
         %s''' % (str(self.target).rstrip(), ",".join([str(d).rstrip() for d in self.dependants]))
@@ -350,7 +350,7 @@ class SpanOffsetOverlapError(AnnotationError):
         self.offsets = offsets
 
     def __str__(self):
-        return u'The offsets [%s] overlap' % (
+        return 'The offsets [%s] overlap' % (
             ', '.join(str(e) for e in self.offsets))
 
     def json(self, json_dic):
@@ -1150,11 +1150,11 @@ class Annotations(object):
                 self.failed_lines.append(e.line_num - 1)
 
     def __str__(self):
-        s = u'\n'.join(str(ann).rstrip(u'\r\n') for ann in self)
+        s = '\n'.join(str(ann).rstrip('\r\n') for ann in self)
         if not s:
-            return u''
+            return ''
         else:
-            return s if s[-1] == u'\n' else s + u'\n'
+            return s if s[-1] == '\n' else s + '\n'
 
     def __it__(self):
         for ann in self._lines:
@@ -1338,7 +1338,7 @@ class TextAnnotations(Annotations):
         # If the tail is empty, force a fill with the corresponding text.
         if data_tail.strip() == '' and spanlen > 0:
             self.messages.error(
-                u"Text-bound annotation missing text (expected format 'ID\\tTYPE START END\\tTEXT'). Filling from reference text. NOTE: This changes annotations on disk unless read-only.")
+                "Text-bound annotation missing text (expected format 'ID\\tTYPE START END\\tTEXT'). Filling from reference text. NOTE: This changes annotations on disk unless read-only.")
             text = "".join([self._document_text[start:end]
                             for start, end in spans])
 
@@ -1368,14 +1368,14 @@ class TextAnnotations(Annotations):
                 oldstylereftext = ''.join(spantexts)
                 if text[:len(oldstylereftext)] == oldstylereftext:
                     self.messages.warning(
-                        u'NOTE: replacing old-style (pre-1.3) discontinuous annotation text span with new-style one, i.e. adding space to "%s" in .ann' % text[:len(oldstylereftext)], -1)
+                        'NOTE: replacing old-style (pre-1.3) discontinuous annotation text span with new-style one, i.e. adding space to "%s" in .ann' % text[:len(oldstylereftext)], -1)
                     text = reftext
                     data_tail = ''
                 else:
                     # unanticipated mismatch
                     self.messages.error(
-                        (u'Text-bound annotation text "%s" does not '
-                         u'match marked span(s) %s text "%s" in document') %
+                        ('Text-bound annotation text "%s" does not '
+                         'match marked span(s) %s text "%s" in document') %
                         (text, str(spans), reftext.replace(
                             '\n', '\\n')))
                     raise IdedAnnotationLineSyntaxError(
@@ -1383,7 +1383,7 @@ class TextAnnotations(Annotations):
 
             if data_tail != '' and not data_tail[0].isspace():
                 self.messages.error(
-                    u'Text-bound annotation text "%s" not separated from rest of line ("%s") by space!' %
+                    'Text-bound annotation text "%s" not separated from rest of line ("%s") by space!' %
                     (text, data_tail))
                 raise IdedAnnotationLineSyntaxError(
                     id, self.ann_line, self.ann_line_num + 1, input_file_path)
@@ -1418,7 +1418,7 @@ class Annotation(object):
         raise NotImplementedError
 
     def __repr__(self):
-        return u'%s("%s")' % (str(self.__class__), str(self))
+        return '%s("%s")' % (str(self.__class__), str(self))
 
     def get_deps(self):
         return (set(), set())
@@ -1550,7 +1550,7 @@ class EventAnnotation(IdedAnnotation):
         self.args.append((role + rnum, argid))
 
     def __str__(self):
-        return u'%s\t%s:%s %s%s' % (
+        return '%s\t%s:%s %s%s' % (
             self.id,
             self.type,
             self.trigger,
@@ -1592,7 +1592,7 @@ class EquivAnnotation(TypedAnnotation):
         return other in self.entities
 
     def __str__(self):
-        return u'*\t%s %s%s' % (
+        return '*\t%s %s%s' % (
             self.type,
             ' '.join([str(e) for e in self.entities]),
             self.tail
@@ -1625,7 +1625,7 @@ class AttributeAnnotation(IdedAnnotation):
         self.value = value
 
     def __str__(self):
-        return u'%s\t%s %s%s%s' % (
+        return '%s\t%s %s%s%s' % (
             self.id,
             self.type,
             self.target,
@@ -1655,7 +1655,7 @@ class NormalizationAnnotation(IdedAnnotation):
         self.reftext = tail.lstrip('\t').rstrip('\n')
 
     def __str__(self):
-        return u'%s\t%s %s %s:%s\t%s' % (
+        return '%s\t%s %s %s:%s\t%s' % (
             self.id,
             self.type,
             self.target,
@@ -1681,7 +1681,7 @@ class OnelineCommentAnnotation(IdedAnnotation):
         self.target = target
 
     def __str__(self):
-        return u'%s\t%s %s%s' % (
+        return '%s\t%s %s%s' % (
             self.id,
             self.type,
             self.target,
@@ -1779,7 +1779,7 @@ class TextBoundAnnotation(IdedAnnotation):
         return True
 
     def __str__(self):
-        return u'%s\t%s %s%s' % (
+        return '%s\t%s %s%s' % (
             self.id,
             self.type,
             ';'.join(['%d %d' % (start, end) for start, end in self.spans]),
@@ -1848,7 +1848,7 @@ class TextBoundAnnotationWithText(TextBoundAnnotation):
 
     def __str__(self):
         #log_info('TextBoundAnnotationWithText: __str__: "%s"' % self.text)
-        return u'%s\t%s %s\t%s%s' % (
+        return '%s\t%s %s\t%s%s' % (
             self.id,
             self.type,
             ';'.join(['%d %d' % (start, end) for start, end in self.spans]),
@@ -1887,7 +1887,7 @@ class BinaryRelationAnnotation(IdedAnnotation):
         self.arg2 = arg2
 
     def __str__(self):
-        return u'%s\t%s %s:%s %s:%s%s' % (
+        return '%s\t%s %s:%s %s:%s%s' % (
             self.id,
             self.type,
             self.arg1l,
@@ -1919,8 +1919,8 @@ def _writable(sugg_path):
 if __name__ == '__main__':
     from sys import stderr, argv
     for ann_path_i, ann_path in enumerate(argv[1:]):
-        print(("%s.) '%s' " % (ann_path_i, ann_path, )
-                          ).ljust(80, '#'))
+        print((("%s.) '%s' " % (ann_path_i, ann_path, )
+                          ).ljust(80, '#')))
         with Annotations(ann_path) as anns:
             for ann in anns:
-                print(str(ann).rstrip('\n'))
+                print((str(ann).rstrip('\n')))

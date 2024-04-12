@@ -46,7 +46,7 @@ class SimstringBase:
             include_marks=DEFAULT_INCLUDE_MARKS,
             threshold=DEFAULT_THRESHOLD,
             similarity_measure=DEFAULT_SIMILARITY_MEASURE,
-            unicode=DEFAULT_UNICODE,
+            str=DEFAULT_UNICODE,
             build=False):
 
         self.name = dbfn
@@ -193,14 +193,14 @@ def test(simstringClass):
         "-12345",
         "012345",
     ]
-    print('strings:', strings)
+    print(('strings:', strings))
 
     with simstringClass(dbname, build=True) as ss:
         ss.build(strings)
 
     with simstringClass(dbname) as ss:
         for t in ['0', '012', '012345', '0123456', '0123456789']:
-            print('lookup for', t)
+            print(('lookup for', t))
             for s in ss.lookup(t):
-                print(s, 'contains', t, '(threshold %f)' % simstringClass.DEFAULT_THRESHOLD)
+                print((s, 'contains', t, '(threshold %f)' % simstringClass.DEFAULT_THRESHOLD))
         ss.delete()

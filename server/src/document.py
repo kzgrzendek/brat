@@ -370,7 +370,7 @@ def get_base_types(directory):
     project_conf = ProjectConfiguration(directory)
 
     keymap = project_conf.get_kb_shortcuts()
-    hotkey_by_type = dict((v, k) for k, v in keymap.items())
+    hotkey_by_type = dict((v, k) for k, v in list(keymap.items()))
 
     # fill config for nodes for which annotation is configured
 

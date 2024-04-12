@@ -33,8 +33,8 @@ try:
     base_url = sys.argv[1]
     url = urlparse(base_url)
 except BaseException:
-    print(sys.argv[1])
-    print("Syntax: %s <url>" % sys.argv[0])
+    print((sys.argv[1]))
+    print(("Syntax: %s <url>" % sys.argv[0]))
     sys.exit(1)
 
 this_dir = dirname(sys.argv[0])
@@ -72,7 +72,7 @@ def convert_coll(coll):
     for item in coll_data['items']:
         if item[0] == 'd':
             doc = item[2]
-            print("  %s" % doc)
+            print(("  %s" % doc))
             doc_query_url = urljoin(
                 base_url, 'ajax.cgi?action=getDocument&collection=%s&document=%s' %
                 (ajax_coll, doc))

@@ -63,12 +63,12 @@ if __name__ == '__main__':
     try:
         for txt_file_path in argv[1:]:
             print()
-            print('### Tokenising:', txt_file_path)
+            print(('### Tokenising:', txt_file_path))
             with open(txt_file_path, 'r') as txt_file:
                 text = txt_file.read()
                 print(text)
             print('# Original text:')
-            print(text.replace('\n', '\\n'))
+            print((text.replace('\n', '\\n')))
             #offsets = [o for o in jp_token_boundary_gen(text)]
             #offsets = [o for o in whitespace_token_boundary_gen(text)]
             offsets = [o for o in gtb_token_boundary_gen(text)]
@@ -79,6 +79,6 @@ if __name__ == '__main__':
                 assert tok, 'blank tokens disallowed'
                 assert not tok[0].isspace() and not tok[-1].isspace(), (
                     'tokens may not start or end with white-space "%s"' % tok)
-                print('"%s"' % tok)
+                print(('"%s"' % tok))
     except IOError:
         raise

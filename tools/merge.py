@@ -77,7 +77,7 @@ def main(args):
         id = join_path(dirname, basename.split('.')[0])
         id_to_ann_files[id].append(file_path)
 
-    for id, ann_files in id_to_ann_files.items():
+    for id, ann_files in list(id_to_ann_files.items()):
         # XXX: Check if output file exists
         lines = []
         for ann_file_path in ann_files:

@@ -105,7 +105,7 @@ def sentence_offsets(xml):
         sent_min_max[s_id] = (min(tok.start, s_entry[0]),
                               max(tok.end, s_entry[1]), )
     return sorted((s_start, s_end)
-                  for s_start, s_end in sent_min_max.values())
+                  for s_start, s_end in list(sent_min_max.values()))
 
 
 def text(xml):

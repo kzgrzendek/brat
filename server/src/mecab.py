@@ -56,4 +56,4 @@ if __name__ == '__main__':
     sentence = '鴨かも？'
     token_offsets = [t for t in token_offsets_gen(sentence)]
     segmented = [sentence[start:end + 1] for start, end in token_offsets]
-    print('\t'.join((sentence, str(token_offsets), '|'.join(segmented))))
+    print(('\t'.join((sentence, str(token_offsets), '|'.join(segmented)))))

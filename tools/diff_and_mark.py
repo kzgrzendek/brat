@@ -377,7 +377,7 @@ class AnnotationDiff:  # {{{
         seen = []
         import operator
         sorted_hist = sorted(
-            iter(correspondence_hist.items()),
+            iter(list(correspondence_hist.items())),
             key=operator.itemgetter(1))
         for key, equiv_item in sorted_hist:
             count, correspondence_pair, entities = equiv_item
@@ -576,7 +576,7 @@ def diff_files_and_dirs(firsts, second, result, force=False, verbose=False):
             basename = os.path.basename(first_name)
 
             if verbose:
-                print("Comparing", basename)
+                print(("Comparing", basename))
 
             if second_dir:
                 second_name = os.path.join(second, basename)

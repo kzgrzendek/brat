@@ -160,7 +160,7 @@ def tag(collection, document, tagger):
         mods = ModificationTracker()
         cidmap = {}
 
-        for cid, ann in ((i, a) for i, a in json_resp.items()
+        for cid, ann in ((i, a) for i, a in list(json_resp.items())
                          if _is_textbound(a)):
             assert 'offsets' in ann, 'Tagger response lacks offsets'
             offsets = ann['offsets']
@@ -186,7 +186,7 @@ def tag(collection, document, tagger):
             mods.addition(tb)
             ann_obj.add_annotation(tb)
 
-        for norm in (a for a in json_resp.values()
+        for norm in (a for a in list(json_resp.values())
                      if _is_normalization(a)):
             try:
                 _type = norm['type']

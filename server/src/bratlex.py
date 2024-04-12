@@ -134,7 +134,7 @@ def t_freetext_NEWLINE(t):
 
 
 def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
+    print(("Illegal character '%s'" % t.value[0]))
     raise Exception
     t.lexer.skip(1)
 

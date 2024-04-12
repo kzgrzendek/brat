@@ -399,7 +399,7 @@ def main(argv):
             with Simstring(ssdbfn,
                     ngram_length=arg.ngram,
                     include_marks=arg.mark,
-                    unicode=arg.unicode,
+                    str=arg.str,
                     build=True) as ss:
                 for row in cursor.execute(SELECT_SIMSTRING_STRINGS_COMMAND):
                     ss.insert(row[0])

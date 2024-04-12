@@ -413,7 +413,7 @@ def _set_attributes(ann_obj, ann, attributes, mods, undo_resp={}):
                 mods.change(before, existing_attr_ann)
 
     # The remaining annotations are new and should be created
-    for attr_type, attr_val in attributes.items():
+    for attr_type, attr_val in list(attributes.items()):
         if attr_type not in set((a.type for a in existing_attr_anns)):
             new_attr = AttributeAnnotation(ann.id, ann_obj.get_new_id('A'),
                                            attr_type, '', attr_val)
@@ -552,11 +552,11 @@ def _parse_attributes(attributes):
 
         # XXX: Hack since the client is sending back False and True as values...
         # These are __not__ to be sent, they violate the protocol
-        for _del in [k for k, v in _attributes.items() if v == False]:
+        for _del in [k for k, v in list(_attributes.items()) if v == False]:
             del _attributes[_del]
 
         # These are to be old-style modifiers without values
-        for _revalue in [k for k, v in _attributes.items() if v == True]:
+        for _revalue in [k for k, v in list(_attributes.items()) if v == True]:
             _attributes[_revalue] = True
         ###
     return _attributes

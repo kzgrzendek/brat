@@ -13,7 +13,7 @@ class SimstringLib(SimstringBase):
             include_marks=SimstringBase.DEFAULT_INCLUDE_MARKS,
             threshold=SimstringBase.DEFAULT_THRESHOLD,
             similarity_measure=SimstringBase.DEFAULT_SIMILARITY_MEASURE,
-            unicode=SimstringBase.DEFAULT_UNICODE,
+            str=SimstringBase.DEFAULT_UNICODE,
             build=False):
 
         assert include_marks == False, "Error: begin/end marks not supported"
@@ -24,7 +24,7 @@ class SimstringLib(SimstringBase):
                 include_marks=include_marks,
                 threshold=threshold,
                 similarity_measure=similarity_measure,
-                unicode=unicode,
+                str=str,
                 build=build)
 
         if build:

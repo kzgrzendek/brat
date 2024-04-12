@@ -150,7 +150,7 @@ def levenshtein(a, b):
 if __name__ == '__main__':
     for a, b in (('kitten', 'sitting'), ('Saturday', 'Sunday'), ('Caps', 'caps'),
                  ('', 'bar'), ('dog', 'dog'), ('dog', '___dog__'), ('dog', '__d_o_g__')):
-        print('levenshtein', a, b, levenshtein(a, b))
-        print('tsuruoka', a, b, tsuruoka(a, b))
-        print('tsuruoka_local', a, b, tsuruoka_local(a, b))
-        print('tsuruoka_norm', a, b, tsuruoka_norm(a, b))
+        print(('levenshtein', a, b, levenshtein(a, b)))
+        print(('tsuruoka', a, b, tsuruoka(a, b)))
+        print(('tsuruoka_local', a, b, tsuruoka_local(a, b)))
+        print(('tsuruoka_norm', a, b, tsuruoka_norm(a, b)))

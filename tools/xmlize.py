@@ -119,8 +119,8 @@ def collect_annotations(annotations, ann, words):
     norms = defaultdict(lambda: defaultdict(list))
     for a in ann.get_normalizations():
         norms[a.target][a.type].append("%s:%s" % (a.refdb, a.refid))
-    for target, types in norms.items():
-        for typ, refs in types.items():
+    for target, types in list(norms.items()):
+        for typ, refs in list(types.items()):
             anns[target].set(typ, " ".join(refs))
 
     for a in ann.get_attributes():

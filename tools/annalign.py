@@ -64,16 +64,16 @@ def escape_tb_text(s):
 def is_newline(c):
     # from http://stackoverflow.com/a/18325046
     return c in (
-        '\u000A',    # LINE FEED
-        '\u000B',    # VERTICAL TABULATION
-        '\u000C',    # FORM FEED
-        '\u000D',    # CARRIAGE RETURN
-        '\u001C',    # FILE SEPARATOR
-        '\u001D',    # GROUP SEPARATOR
-        '\u001E',    # RECORD SEPARATOR
-        '\u0085',    # NEXT LINE
-        '\u2028',    # LINE SEPARATOR
-        '\u2029'     # PARAGRAPH SEPARATOR
+        '\\u000A',    # LINE FEED
+        '\\u000B',    # VERTICAL TABULATION
+        '\\u000C',    # FORM FEED
+        '\\u000D',    # CARRIAGE RETURN
+        '\\u001C',    # FILE SEPARATOR
+        '\\u001D',    # GROUP SEPARATOR
+        '\\u001E',    # RECORD SEPARATOR
+        '\\u0085',    # NEXT LINE
+        '\\u2028',    # LINE SEPARATOR
+        '\\u2029'     # PARAGRAPH SEPARATOR
     )
 
 
