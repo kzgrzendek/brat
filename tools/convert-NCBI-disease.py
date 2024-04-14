@@ -12,8 +12,6 @@
 # Note that the texts are tokenized. This script does not attempt to
 # recover the original texts but instead keep the tokenization.
 
-
-
 import codecs
 import os
 import re
@@ -46,8 +44,8 @@ def output(docid, text, anns):
     idseq = 1
     for start, end, type_, text in anns:
         # write type as separate attribute
-        print("T%d\t%s %d %d\t%s" % (idseq, ENTITY_TYPE, start, end,
-                                               text), file=soout)
+        print("T%d\t%s %d %d\t%s" % (idseq, ENTITY_TYPE, start, end, text),
+              file=soout)
         print("A%d\t%s T%d %s" % (idseq, ATTR_TYPE, idseq, type_), file=soout)
         idseq += 1
 
@@ -78,12 +76,13 @@ def process(fn):
     pass
 
     with codecs.open(fn, encoding=INPUT_ENCODING) as f:
-        for l in f:
-            l = l.strip('\n\r')
+        for line in f:
+            line = line.strip('\n\r')
             try:
-                PMID, title, body = l.split('\t', 2)
+                PMID, title, body = line.split('\t', 2)
             except ValueError:
-                assert False, "Expected three TAB-separated fields, got '%s'" % l
+                assert False, "Expected three TAB-separated fields, got '%s'" % line
+                
             # In a few cases, the body text contains tabs (probably by
             # error). Replace these with space.
             body = body.replace('\t', ' ')

@@ -4,17 +4,15 @@
 
 # Note: not comprehensively tested, use with caution.
 
-
-
 import sys
 
 try:
     import argparse
 except ImportError:
-    from os.path import basename
+    from os.path import basename, join
     from sys import path as sys_path
     # We are most likely on an old Python and need to use our internal version
-    sys_path.append(join_path(basename(__file__), '../server/lib'))
+    sys_path.append(join(basename(__file__), '../server/lib'))
     import argparse
 
 

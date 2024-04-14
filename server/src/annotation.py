@@ -8,17 +8,20 @@
 # # TextAnnotations(
 # #     document=None,    # document path without extension
 # #                       #   if None, the document will not be read or saved
-# #     text=None,        # provides the text instead of loading from `.txt` file
+# #     text=None,        # provides the text instead of loading
+# #                       #   from `.txt` file
 # #     read_only=False,  # if True, the document will not be saved
 # #     lock_dir=None,    # lock file directory (system tmp dir if None)
-# #     source=None)      # provides the annotations instead of loading from `.ann` file
+# #     source=None)      # provides the annotations instead of loading
+# #                       # from `.ann` file
 #
 # # TextBoundAnnotationWithText(
 # #     spans,            # list of (start, end) pairs
 # #     id,               # ID like "T1"; can get new id with `get_new_id`
 # #     type,             # label
 # #     text,             # the text or the `TextAnnotations` object
-# #                       #   if the latter, annotation automatically added to it
+# #                       #   if the latter, annotation automatically
+# #                       #   added to it
 # #     text_tail="",
 # #     source_id=None)
 # #
@@ -92,9 +95,11 @@
 # with TextAnnotations(doc2_path, text=text) as doc:
 #     ann = TextBoundAnnotationWithText([[3, 9]], "T1", "Adverb", "boldly")
 #     doc.add_annotation(ann)
-#     # Alternately, you can just pass the `TextAnnotations` object instead of text
-#     # this will automatically extract the text, and also add the annotation
-#     # Also note that you can generate a new ID using `get_new_id`, if you want
+#     # Alternately, you can just pass the `TextAnnotations` object
+#     # instead of text, this will automatically extract the text,
+#     # and also add the annotation.
+#     # Also note that you can generate a new ID using `get_new_id`,
+#     # if you want
 #     id = doc.get_new_id("T")
 #     TextBoundAnnotationWithText([[0, 2], [10, 12]], id, "Verb", doc)
 #
@@ -116,8 +121,6 @@
 # doc.save(ann)
 
 
-
-
 from codecs import open as codecs_open
 from itertools import chain, takewhile
 from os import close as os_close
@@ -126,8 +129,6 @@ from os.path import join as path_join
 from os.path import splitext, dirname, isfile, isdir, exists
 from re import compile as re_compile
 from re import match as re_match
-from time import time
-
 
 try:
     from common import ProtocolError
@@ -135,7 +136,7 @@ try:
     from common import WORK_DIR
     try:
         from filelock import FileLock
-    except:
+    except (ModuleNotFoundError, ImportError):
         raise Exception("Please install `filelock` module")
     PROGRAMMATIC = False
 except (ModuleNotFoundError, ImportError):
@@ -143,6 +144,7 @@ except (ModuleNotFoundError, ImportError):
     ProtocolError = Exception
 
     import contextlib
+
     class MessageCollection:
         def __init__(self):
             self.ok = True
@@ -167,10 +169,6 @@ Functionality related to the annotation file format.
 Author:     Pontus Stenetorp   <pontus is s u-tokyo ac jp>
 Version:    2011-01-25
 '''
-
-
-
-
 # Constants
 # The only suffix we allow to write to, which is the joined annotation file
 JOINED_ANN_FILE_SUFF = 'ann'
@@ -226,6 +224,7 @@ class AnnotationNotFoundError(Exception):
 
 class AnnotationError(ProtocolError):
     pass
+
 
 class AnnotationFileNotFoundError(AnnotationError):
     def __init__(self, fn):
@@ -336,13 +335,15 @@ class DependingAnnotationDeleteError(Exception):
 
     def __str__(self):
         return '%s can not be deleted due to depending annotations %s' % (str(
-            self.target).rstrip(), ",".join([str(d).rstrip() for d in self.dependants]))
+            self.target).rstrip(), ",".join([str(d).rstrip()
+                                             for d in self.dependants]))
 
     def html_error_str(self, response=None):
         return '''Annotation:
         %s
         Has depending annotations attached to it:
-        %s''' % (str(self.target).rstrip(), ",".join([str(d).rstrip() for d in self.dependants]))
+        %s''' % (str(self.target).rstrip(), ","
+                 .join([str(d).rstrip() for d in self.dependants]))
 
 
 class SpanOffsetOverlapError(AnnotationError):
@@ -359,7 +360,8 @@ class SpanOffsetOverlapError(AnnotationError):
 
 
 # Open function that enforces strict, utf-8, and universal newlines for reading
-# TODO: Could have another wrapping layer raising an appropriate AnnotationError
+# TODO: Could have another wrapping layer raising an appropriate
+#       AnnotationError
 def open_textfile(filename, mode='rU'):
     # enforce universal newline support ('U') in read modes
     if len(mode) != 0 and mode[0] == 'r' and 'U' not in mode:
@@ -472,9 +474,9 @@ class Annotations(object):
             else:
                 self.messages = Messager
 
-
     # TODO: DOC!
-    def __init__(self, document=None, read_only=False, lock_dir=None, source=None):
+    def __init__(self, document=None, read_only=False, lock_dir=None,
+                 source=None):
         if lock_dir is None:
             if PROGRAMMATIC:
                 from tempfile import gettempdir
@@ -504,7 +506,7 @@ class Annotations(object):
         # crash?
         from collections import defaultdict
         from os.path import getctime, getmtime
-        #from fileinput import FileInput, hook_encoded
+        # from fileinput import FileInput, hook_encoded
 
         # we should remember this
         self._document = document
@@ -670,7 +672,8 @@ class Annotations(object):
     # TODO: getters for other categories of annotations
     # TODO: Remove read and use an internal and external version instead
     def add_annotation(self, ann, read=False):
-        # log_info(u'Will add: ' + str(ann).rstrip('\n') + ' ' + str(type(ann)))
+        # log_info(u'Will add: ' + str(ann).rstrip('\n') + ' '
+        # + str(type(ann)))
         # TODO: DOC!
         # TODO: Check read only
         if not read and self._read_only:
@@ -685,7 +688,7 @@ class Annotations(object):
                 try:
                     # Make sure that this Equiv duck quacks
                     eq_ann.entities
-                except AttributeError as e:
+                except AttributeError:
                     assert False, 'got a non-entity from an entity call'
 
                 # Do we have an entitiy in common with this equiv?
@@ -699,8 +702,9 @@ class Annotations(object):
                             try:
                                 self.del_annotation(merge_cand)
                             except DependingAnnotationDeleteError:
-                                assert False, ('Equivs lack ids and should '
-                                               'never have dependent annotations')
+                                assert False, ('Equivs lack ids and should'
+                                               'never have dependent'
+                                               'annotations')
                         merge_cand = eq_ann
                         # We already merged it all, break to the next ann
                         break
@@ -739,7 +743,8 @@ class Annotations(object):
     def del_annotation(self, ann, tracker=None):
         # TODO: Check read only
         # TODO: Flag to allow recursion
-        # TODO: Sampo wants to allow delet of direct deps but not indirect, one step
+        # TODO: Sampo wants to allow delet of direct deps but not indirect
+        #       one step
         # TODO: needed to pass tracker to track recursive mods, but use is too
         #      invasive (direct modification of ModificationTracker.deleted)
         # TODO: DOC!
@@ -1016,10 +1021,12 @@ class Annotations(object):
 
                 if any((c.isspace() for c in end_str)):
                     self.messages.error(
-                        'Error parsing textbound "%s\t%s". (Using space instead of tab?)' %
+                        'Error parsing textbound "%s\t%s".'
+                        '(Using space instead of tab?)' %
                         (id, data))
                     raise IdedAnnotationLineSyntaxError(
-                        id, self.ann_line, self.ann_line_num + 1, input_file_path)
+                        id, self.ann_line, self.ann_line_num + 1,
+                        input_file_path)
 
                 start, end = (int(start_str), int(end_str))
                 spans.append((start, end))
@@ -1094,7 +1101,8 @@ class Annotations(object):
 
                 if id in self._ann_by_id and pre != '*':
                     raise DuplicateAnnotationIdError(
-                        id, self.ann_line, self.ann_line_num + 1, input_file_path)
+                        id, self.ann_line, self.ann_line_num + 1,
+                          input_file_path)
 
                 # if the ID is not valid, need to fail with
                 # AnnotationLineSyntaxError (not
@@ -1107,7 +1115,7 @@ class Annotations(object):
                 try:
                     data_delim = id_tail.index('\t')
                     data, data_tail = (id_tail[:data_delim],
-                                        id_tail[data_delim:])
+                                       id_tail[data_delim:])
                 except ValueError:
                     data = id_tail
                     # No tail at all, although it should have a \t
@@ -1115,7 +1123,7 @@ class Annotations(object):
 
                 new_ann = None
 
-                #log_info('Will evaluate prefix: ' + pre)
+                # log_info('Will evaluate prefix: ' + pre)
 
                 assert len(pre) >= 1, "INTERNAL ERROR"
                 pre_first = pre[0]
@@ -1126,7 +1134,8 @@ class Annotations(object):
                         id, data, data_tail, input_file_path)
                 except KeyError:
                     raise IdedAnnotationLineSyntaxError(
-                        id, self.ann_line, self.ann_line_num + 1, input_file_path)
+                        id, self.ann_line, self.ann_line_num + 1,
+                        input_file_path)
 
                 assert new_ann is not None, "INTERNAL ERROR"
                 self.add_annotation(new_ann, read=True)
@@ -1217,10 +1226,11 @@ class Annotations(object):
             lock_file = contextlib.suppress()
         else:
             lock_file = FileLock(path_join(
-                    self.lock_dir, str(hash(self._input_files[0].replace('/', '_'))) + '.lock'
+                    self.lock_dir, str(hash(self._input_files[0]
+                                            .replace('/', '_'))) + '.lock'
             ))
         with lock_file:
-            #from tempfile import NamedTemporaryFile
+            # from tempfile import NamedTemporaryFile
             from tempfile import mkstemp
             # TODO: XXX: Is copyfile really atomic?
             from shutil import copyfile
@@ -1240,8 +1250,9 @@ class Annotations(object):
                     tmp_file.flush()
 
                     try:
-                        # read only, because we write manually using copyfile; this prevents certain reentrant errors
-                        with Annotations(tmp_file.name, read_only=True) as ann:
+                        # read only, because we write manually using copyfile;
+                        # this prevents certain reentrant errors
+                        with Annotations(tmp_file.name, read_only=True):
                             # Move the temporary file onto the old file
                             copyfile(tmp_file.name, self._input_files[0])
                             # As a matter of convention we adjust the modified
@@ -1249,17 +1260,20 @@ class Annotations(object):
                             # helps us to make back-ups
                             # time()
                             # XXX: Disabled for now!
-                            #utime(DATA_DIR, (now, now))
+                            # utime(DATA_DIR, (now, now))
                     except Exception as e:
                         self.messages.error(
-                            'ERROR writing changes: generated annotations cannot be read back in!\n(This is almost certainly a system error, please contact the developers.)\n%s' %
+                            'ERROR writing changes: generated annotations'
+                            'cannot be read back in!\n'
+                            '(This is almost certainly a system error, '
+                            'please contact the developers.)\n%s' %
                             e, -1)
                         raise
             finally:
                 try:
                     from os import remove
                     remove(tmp_fname)
-                except Exception as e:
+                except Exception:
                     self.messages.error(
                         "Error removing temporary file '%s'" %
                         tmp_fname)
@@ -1277,7 +1291,8 @@ class TextAnnotations(Annotations):
     annotations against the text.
     """
 
-    def __init__(self, document=None, text=None, read_only=False, lock_dir=None, source=None):
+    def __init__(self, document=None, text=None, read_only=False,
+                 lock_dir=None, source=None):
         self._init_messager()
 
         # First read the text or the Annotations can't verify the annotations
@@ -1298,7 +1313,8 @@ class TextAnnotations(Annotations):
         if text is not None:
             self._document_text = text
 
-        Annotations.__init__(self, document=document, read_only=read_only, lock_dir=lock_dir, source=source)
+        Annotations.__init__(self, document=document, read_only=read_only,
+                             lock_dir=lock_dir, source=source)
 
     def _parse_textbound_annotation(
             self, id, data, data_tail, input_file_path):
@@ -1325,7 +1341,8 @@ class TextAnnotations(Annotations):
                 if end >= ostart and start < oend:
                     self.messages.error('Text-bound annotation spans overlap')
                     raise IdedAnnotationLineSyntaxError(
-                        id, self.ann_line, self.ann_line_num + 1, input_file_path)
+                        id, self.ann_line, self.ann_line_num + 1,
+                        input_file_path)
 
             seen_spans.append((start, end))
 
@@ -1338,19 +1355,23 @@ class TextAnnotations(Annotations):
         # If the tail is empty, force a fill with the corresponding text.
         if data_tail.strip() == '' and spanlen > 0:
             self.messages.error(
-                "Text-bound annotation missing text (expected format 'ID\\tTYPE START END\\tTEXT'). Filling from reference text. NOTE: This changes annotations on disk unless read-only.")
+                "Text-bound annotation missing text (expected format "
+                "'ID\\tTYPE START END\\tTEXT'). Filling from reference text."
+                "NOTE: This changes annotations on disk unless read-only.")
             text = "".join([self._document_text[start:end]
                             for start, end in spans])
 
         elif data_tail[0] != '\t':
             self.messages.error(
-                'Text-bound annotation missing tab before text (expected format "ID\\tTYPE START END\\tTEXT").')
+                'Text-bound annotation missing tab before text '
+                '(expected format "ID\\tTYPE START END\\tTEXT").')
             raise IdedAnnotationLineSyntaxError(
                 id, self.ann_line, self.ann_line_num + 1, input_file_path)
 
         elif spanlen > len(data_tail) - 1:  # -1 for tab
             self.messages.error(
-                'Text-bound annotation text "%s" shorter than marked span(s) %s' % (data_tail[1:], str(spans)))
+                'Text-bound annotation text "%s" shorter than '
+                'marked span(s) %s' % (data_tail[1:], str(spans)))
             raise IdedAnnotationLineSyntaxError(
                 id, self.ann_line, self.ann_line_num + 1, input_file_path)
 
@@ -1368,7 +1389,10 @@ class TextAnnotations(Annotations):
                 oldstylereftext = ''.join(spantexts)
                 if text[:len(oldstylereftext)] == oldstylereftext:
                     self.messages.warning(
-                        'NOTE: replacing old-style (pre-1.3) discontinuous annotation text span with new-style one, i.e. adding space to "%s" in .ann' % text[:len(oldstylereftext)], -1)
+                        'NOTE: replacing old-style (pre-1.3) discontinuous '
+                        'annotation text span with new-style one, '
+                        'i.e. adding space to "%s" in .ann'
+                        % text[:len(oldstylereftext)], -1)
                     text = reftext
                     data_tail = ''
                 else:
@@ -1379,11 +1403,13 @@ class TextAnnotations(Annotations):
                         (text, str(spans), reftext.replace(
                             '\n', '\\n')))
                     raise IdedAnnotationLineSyntaxError(
-                        id, self.ann_line, self.ann_line_num + 1, input_file_path)
+                        id, self.ann_line, self.ann_line_num + 1,
+                        input_file_path)
 
             if data_tail != '' and not data_tail[0].isspace():
                 self.messages.error(
-                    'Text-bound annotation text "%s" not separated from rest of line ("%s") by space!' %
+                    'Text-bound annotation text "%s" not separated from rest'
+                    'of line ("%s") by space!' %
                     (text, data_tail))
                 raise IdedAnnotationLineSyntaxError(
                     id, self.ann_line, self.ann_line_num + 1, input_file_path)
@@ -1630,7 +1656,7 @@ class AttributeAnnotation(IdedAnnotation):
             self.type,
             self.target,
             # We hack in old modifiers with this trick using bools
-            ' ' + str(self.value) if self.value != True else '',
+            ' ' + str(self.value) if self.value is not True else '',
             self.tail,
         )
 
@@ -1806,7 +1832,8 @@ class TextBoundAnnotationWithText(TextBoundAnnotation):
     """
 
     def __init__(self, spans, id, type, text, text_tail="", source_id=None):
-        # For convenience, you can pass in a `TextAnnotations` object for `text`
+        # For convenience, you can pass in a `TextAnnotations`
+        # object for `text`
         if isinstance(text, TextAnnotations):
             text_annotations = text
             doc_text = text.get_document_text()
@@ -1847,7 +1874,7 @@ class TextBoundAnnotationWithText(TextBoundAnnotation):
         return self.text
 
     def __str__(self):
-        #log_info('TextBoundAnnotationWithText: __str__: "%s"' % self.text)
+        # log_info('TextBoundAnnotationWithText: __str__: "%s"' % self.text)
         return '%s\t%s %s\t%s%s' % (
             self.id,
             self.type,
@@ -1917,10 +1944,10 @@ def _writable(sugg_path):
 
 
 if __name__ == '__main__':
-    from sys import stderr, argv
+    from sys import argv
     for ann_path_i, ann_path in enumerate(argv[1:]):
-        print((("%s.) '%s' " % (ann_path_i, ann_path, )
-                          ).ljust(80, '#')))
+        print((("%s.) '%s' " % (ann_path_i, ann_path, ))
+               .ljust(80, '#')))
         with Annotations(ann_path) as anns:
             for ann in anns:
                 print((str(ann).rstrip('\n')))

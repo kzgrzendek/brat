@@ -44,7 +44,7 @@ def main(args):
     argparser.add_argument('-u', '--unescape', action='store_true')
     argp = argparser.parse_args(args[1:])
 
-    for line in (l.rstrip('\n') for l in stdin):
+    for line in (line.rstrip('\n') for line in stdin):
         if argp.unescape:
             r = unescape(line)
         else:

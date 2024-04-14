@@ -46,18 +46,20 @@ def ann_logger(directory):
         else:
             # initialize
             try:
-                l = logging.getLogger('annotation')
-                l.setLevel(logging.INFO)
+                logger = logging.getLogger('annotation')
+                logger.setLevel(logging.INFO)
                 handler = logging.FileHandler(annlogfile)
                 handler.setLevel(logging.INFO)
                 formatter = logging.Formatter('%(asctime)s\t%(message)s')
                 handler.setFormatter(formatter)
-                l.addHandler(handler)
-                ann_logger.__logger = l
+                logger.addHandler(handler)
+                ann_logger.__logger = logger
             except IOError as e:
-                Messager.error("""Error: failed to initialize annotation log %s: %s.
-Edit action not logged.
-Please check the Annotation-log logfile setting in tools.conf""" % (annlogfile, e))
+                Messager.error("""Error: failed to initialize
+                               annotation log %s: %s.
+                               Edit action not logged.
+                               Please check the Annotation-log logfile setting
+                               in tools.conf""" % (annlogfile, e))
                 logging.error("Failed to initialize annotation log %s: %s" %
                               (annlogfile, e))
                 ann_logger.__logger = None
@@ -84,9 +86,9 @@ def log_annotation(collection, document, status, action, args):
 
     real_dir = real_directory(collection)
 
-    l = ann_logger(real_dir)
+    logger = ann_logger(real_dir)
 
-    if not l:
+    if not logger:
         return False
 
     try:
@@ -106,7 +108,8 @@ def log_annotation(collection, document, status, action, args):
         action = other_args[0]
         other_args = other_args[1:]
 
-    l.info('%s\t%s\t%s\t%s\t%s\t%s' % (_detab(user), _detab(collection),
-                                       _detab(document), _detab(status),
-                                       _detab(action),
-                                       '\t'.join([_detab(str(a)) for a in other_args])))
+    logger.info('%s\t%s\t%s\t%s\t%s\t%s' % (_detab(user), _detab(collection),
+                                            _detab(document), _detab(status),
+                                            _detab(action),
+                                            '\t'.join([_detab(str(a))
+                                                       for a in other_args])))

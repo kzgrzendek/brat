@@ -684,7 +684,7 @@ class Remapper(object):
 
     def remap(self, start, end):
         if start == end:
-            return offset_map[start], offset_map[end]
+            return self.offset_map[start], self.offset_map[end]
         else:
             return self.offset_map[start], self.offset_map[end - 1] + 1
 

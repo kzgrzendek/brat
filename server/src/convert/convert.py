@@ -4,8 +4,6 @@ Author:     Pontus Stenetorp    <pontus stenetorp>
 Version:    2012-06-26
 """
 
-
-
 from os.path import join as path_join
 from shutil import rmtree
 from tempfile import mkdtemp
@@ -31,7 +29,8 @@ CONV_BY_SRC = {
     'stanford-coref': (stanford_text, stanford_coref, ),
     'stanford-basic_dep': (stanford_text, stanford_basic_dep, ),
     'stanford-collapsed_dep': (stanford_text, stanford_collapsed_dep, ),
-    'stanford-collapsed_ccproc_dep': (stanford_text, stanford_collapsed_ccproc_dep, ),
+    'stanford-collapsed_ccproc_dep': (stanford_text,
+                                      stanford_collapsed_ccproc_dep, ),
 }
 ###
 

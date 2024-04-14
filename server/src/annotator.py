@@ -10,8 +10,6 @@ Version:    2011-04-22
 
 # XXX: This module is messy, re-factor to be done
 
-
-
 from os.path import join as path_join
 from os.path import split as path_split
 from re import compile as re_compile
