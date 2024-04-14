@@ -6,7 +6,7 @@
   <head>
     <title>brat</title>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
-    <meta name="google" value="notranslate"/>
+    <meta name="google" content=""/>
     <link href="static/jquery-theme/jquery-ui.css" rel="stylesheet" type="text/css"/>
     <link href="static/jquery-theme/jquery-ui-redmond.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="client/lib/head.load.min.js"></script>
@@ -98,11 +98,11 @@
         </div>
       </div>
     </div>
-    <script>
+    <script type="">
       var njsw = document.getElementById('no_js_wrapper');
       njsw.parentNode.removeChild(njsw);
     </script>
-    <img id="spinner" src="static/img/spinner.gif"/>
+    <img id="spinner" src="static/img/spinner.gif" alt=""/>
     <div id="messagepullup" class="messages" style="display: none"/>
     <div id="messages" class="messages"/>
     <div id="pulluptrigger"/>
@@ -132,35 +132,35 @@
           <!-- Dummy span, fixes visual glitch (issue #535). TODO: better fix -->
           <span class="document_edit_time unselectable">&nbsp;</span>
           <div id="document_mtime" class="document_edit_time unselectable">&nbsp;</div>
-          <a id="help_link" target="manual" href="http://brat.nlplab.org/manual.html">Help <img src="static/img/Fugue-shadowless-question.png"/></a>
+          <a id="help_link" target="manual" href="http://brat.nlplab.org/manual.html">Help <img src="static/img/Fugue-shadowless-question.png" alt=""/></a>
         </div>
       </div>
     </div>
     <div id="svg"></div>
-    <form id="sent_comment_form" class="dialog" title="Sentence Comment">
+    <form id="sent_comment_form" class="dialog" title="Sentence Comment" action="">
       <fieldset id="sent_comment_fs">
         <legend>Sentence comment</legend>
         <input id="sent_comment_text" class="borderless"/>
       </fieldset>
     </form>
-    <form id="import_form" class="dialog" title="Import">
+    <form id="import_form" class="dialog" title="Import" action="">
       <fieldset id="import_form_docid">
         <legend>Document ID</legend>
         <input id="import_docid" class="borderless"/>
       </fieldset>
       <fieldset id="import_form_text">
         <legend>Document text</legend>
-        <textarea id="import_text" class="borderless"/>
+        <textarea id="import_text" class="borderless" cols="" rows=""/>
       </fieldset>
     </form>
-    <form id="import_coll_form" class="dialog" title="Import collection">
+    <form id="import_coll_form" class="dialog" title="Import collection" action="">
       <fieldset id="import_coll_form_text">
         <legend>Collection archive (.zip, .tar.gz)</legend>
         <input type="file" id="import_coll" class="borderless" accept="application/zip,application/x-gzip" />
       </fieldset>
     </form>
     <!-- Data dialog -->
-    <form id="data_form" class="dialog" title="Data">
+    <form id="data_form" class="dialog" title="Data" action="">
       <!-- Data dialog export section -->
       <fieldset class="small-buttons">
         <legend>Export</legend>
@@ -173,7 +173,7 @@
           <span id="stored_file_spinner" class="ui-button ui-widget ui-corner-all ui-state-default ui-button-text-only">
             <span class="ui-button-text">
               <img style="vertical-align:bottom" height="18"
-                   src="static/img/spinner.gif"/>
+                   src="static/img/spinner.gif" alt=""/>
             </span>
           </span>
           <span id="stored_file_regenerate" title="Regenerate static visualization of the current document">regenerate</span>
@@ -247,7 +247,7 @@
       </div>
     </form>
     <!-- Options dialog -->
-    <form id="options_form" class="dialog" title="Options">
+    <form id="options_form" class="dialog" title="Options" action="">
       <fieldset id="options_form_visual">
         <legend>Visual options</legend>
         <div class="optionRow">
@@ -357,13 +357,13 @@
       </fieldset>
     </form>
     <!-- More collection information dialog -->
-    <form id="more_information_dialog" class="dialog" title="Collection information">
+    <form id="more_information_dialog" class="dialog" title="Collection information" action="">
       <fieldset>
-        <textarea id="more_info_readme" readonly="readonly" class="borderless"/>
+        <textarea id="more_info_readme" readonly="readonly" class="borderless" cols="" rows=""/>
       </fieldset>
     </form>
     <!-- Search dialog -->
-    <form id="search_form" class="dialog" title="Search">
+    <form id="search_form" class="dialog" title="Search" action="">
       <div id="search_tabs">
         <ul>
           <li><a href="#search_tab_text">Text</a></li>
@@ -381,7 +381,7 @@
               <td>Text</td>
               <td>
                 <input id="search_form_text_text" class="fullwidth"
-                    placeholder="Text to match"/>
+                />
               </td>
             </tr>
           </table>
@@ -398,7 +398,7 @@
               <td>Text</td>
               <td>
                 <input id="search_form_entity_text" class="fullwidth"
-                    placeholder="Text to match (empty=anything)"/>
+                />
               </td>
             </tr>
           </table>
@@ -415,7 +415,7 @@
               <td>Trigger</td>
               <td colspan="3">
                 <input id="search_form_event_trigger" class="fullwidth"
-                    placeholder="Text to match (empty=anything)"/>
+                />
               </td>
             </tr>
             <tbody id="search_form_event_roles"/>
@@ -436,7 +436,7 @@
               </td>
               <td>
                 <input id="search_form_relation_arg1_text" class="fullwidth"
-                    placeholder="Text to match (empty=anything)"/>
+                />
               </td>
             </tr>
             <tr>
@@ -446,7 +446,7 @@
               </td>
               <td>
                 <input id="search_form_relation_arg2_text" class="fullwidth"
-                    placeholder="Text to match (empty=anything)"/>
+                />
               </td>
             </tr>
           </table>
@@ -507,7 +507,7 @@
               <td>Text</td>
               <td>
                 <input id="search_form_note_text" class="fullwidth"
-                    placeholder="Text to match (empty=anything)"/>
+                />
               </td>
             </tr>
           </table>
@@ -593,7 +593,7 @@
       </fieldset>
     </form>
     <!-- Span dialog (view only) -->
-    <form id="viewspan_form" class="dialog" title="Span">
+    <form id="viewspan_form" class="dialog" title="Span" action="">
       <fieldset id="viewspan_selected_fset">
         <legend>Text</legend>
         <a target="brat_linked" id="viewspan_highlight_link" href="#">Link</a>
@@ -611,7 +611,7 @@
       </fieldset>
     </form>
     <!-- Span dialog (view+edit) -->
-    <form id="span_form" class="dialog" title="Span">
+    <form id="span_form" class="dialog" title="Span" action="">
       <!-- Span dialog annotated text -->
       <fieldset id="span_selected_fset">
         <legend>Text</legend>
@@ -673,7 +673,7 @@
       </fieldset>
     </form>
     <!-- Rapid mode span dialog -->
-    <form id="rapid_span_form" class="dialog" title="Span type">
+    <form id="rapid_span_form" class="dialog" title="Span type" action="">
       <fieldset id="rapid_span_selected_fset">
         <legend>Text</legend>
         <div id="rapid_span_selected"/>
@@ -688,7 +688,7 @@
       </div>
     </form>
     <!-- Arc dialog -->
-    <form id="arc_form" class="dialog" title="Arc">
+    <form id="arc_form" class="dialog" title="Arc" action="">
       <fieldset id="arc_origin_fset">
         <legend>From</legend>
         <a target="brat_linked" id="arc_highlight_link" href="#">Link</a>
@@ -718,28 +718,28 @@
 
     </form>
     <!-- Login dialog -->
-    <form id="auth_form" class="dialog" title="Login">
+    <form id="auth_form" class="dialog" title="Login" action="">
       <fieldset>
         <legend>Username</legend>
-        <input id="auth_user" placeholder="Username" class="borderless"/>
+        <input id="auth_user" class="borderless"/>
       </fieldset>
       <fieldset>
         <legend>Password</legend>
-        <input id="auth_pass" type="password" placeholder="Password" class="borderless"/>
+        <input id="auth_pass" type="password" class="borderless"/>
       </fieldset>
     </form>
     <!-- Split span annotation dialog -->
-    <form id="split_form" class="dialog" title="Split the Span">
+    <form id="split_form" class="dialog" title="Split the Span" action="">
       <fieldset>
         <legend>Split Roles</legend>
         <div id="split_roles" class="scroll_fset"/>
       </fieldset>
     </form>
     <!-- Browser dialog -->
-    <form id="collection_browser" class="dialog" title="Open">
+    <form id="collection_browser" class="dialog" title="Open" action="">
       <fieldset>
         <legend>Collection</legend>
-        <input id="collection_input" readonly="readonly" placeholder="Document" class="borderless"/>
+        <input id="collection_input" readonly="readonly" class="borderless"/>
       </fieldset>
       <fieldset>
         <legend>Collection Information</legend>
@@ -750,7 +750,7 @@
       </fieldset>
       <fieldset>
         <legend>Document</legend>
-        <input id="document_input" placeholder="Document" class="borderless"/>
+        <input id="document_input" class="borderless"/>
       </fieldset>
       <table id="document_select" class="ui-widget unselectable">
         <thead class="ui-widget-header"/>
@@ -759,7 +759,7 @@
     </form>
     <!-- Normalization list dialog -->
     <!-- TODO -->
-    <form id="norm_list_dialog" class="dialog" title="Normalization List">
+    <form id="norm_list_dialog" class="dialog" title="Normalization List" action="">
       <table id="norm_list_table" class="rowselectable ui-widget unselectable">
         <thead class="ui-widget-header">
           <tr>
@@ -774,7 +774,7 @@
       </table>
     </form>
     <!-- Normalization DB search dialog -->
-    <form id="norm_search_dialog" class="dialog" title="Search">
+    <form id="norm_search_dialog" class="dialog" title="Search" action="">
       <fieldset>
         <legend>Query</legend>
         <table id="norm_search_container">
@@ -788,7 +788,7 @@
               </a>
             </td>
             <td>
-              <input id="norm_search_query" placeholder="Query string" class="borderless"/>
+              <input id="norm_search_query" class="borderless"/>
             </td>
             <td class="narrow">
               <input id="norm_search_button" type="button" value="Search"/>
@@ -798,7 +798,7 @@
       </fieldset>
       <fieldset>
         <legend>ID</legend>
-        <input id="norm_search_id" placeholder="Identifier" class="borderless"/>
+        <input id="norm_search_id" class="borderless"/>
       </fieldset>
       <table id="norm_search_result_select" class="rowselectable ui-widget unselectable">
         <thead class="ui-widget-header"/>
@@ -807,7 +807,7 @@
     </form>
     <!-- Spinner -->
     <div id="waiter" class="dialog" title="Please wait">
-      <img src="static/img/spinner.gif"/>
+      <img src="static/img/spinner.gif" alt=""/>
     </div>
     <!-- "About" dialog -->
     <div id="about" class="dialog unselectable" title="About brat">
@@ -863,14 +863,15 @@
       <p>Placing the mouse cursor over the blue bar on top of the
         window opens the tool menu. This provides access to the
         following features:
-        <ul>
-          <li><b>Collection</b>: collection browser</li>
-          <li><b>Data</b>: export annotation data</li>
-          <li><b>Search</b>: search current document or collection</li>
-          <li><b>Options</b>: system configuration options</li>
-          <li><b>Login</b>: log in for editing</li>
-        </ul>
       </p>
+      <ul>
+        <li><b>Collection</b>: collection browser</li>
+        <li><b>Data</b>: export annotation data</li>
+        <li><b>Search</b>: search current document or collection</li>
+        <li><b>Options</b>: system configuration options</li>
+        <li><b>Login</b>: log in for editing</li>
+      </ul>
+
       <h3>Basic editing</h3>
       <p>When logged in (from the menu), it is possible to add
         annotations for a text span simply by selecting that span with
